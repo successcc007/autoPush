@@ -1,0 +1,10 @@
+取disc值
+\<input\s+(type\=\"hidden\")\s+(name\=\"disc\").+\>
+
+value=\".+\"\>
+
+取url
+\<form\s+name\=\"formDisclaimer\"\s+method\=\"post\"\s+action\=\"\S+\"\>
+
+
+action\=\"\S+\"\>
