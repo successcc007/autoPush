@@ -8,32 +8,32 @@
  */
 class imgAddText
 {
-    function AddText($bigImgPath, $text,$savePath)
+    function AddText($bigImgPath, $text, $savePath)
     {
         // $text水印文字
         //  $bigImgPath = 'backgroud.png';
+        list($bgWidth, $bgHight, $bgType) = getimagesize($bigImgPath);
         $img = imagecreatefromstring(file_get_contents($bigImgPath));
-        $font = 'msyhl.ttc';//字体
-        $black = imagecolorallocate($img, 0, 0, 0);//字体颜色 RGB
+        $font = './upload/simsun.ttc';//字体
+        $black = imagecolorallocate($img, 0x00, 0x00, 0x00);//字体颜色 RGB
         $fontSize = 20;   //字体大小
-        $circleSize = 60; //旋转角度
-        $left = 50;      //左边距
-        $top = 150;       //顶边距
+        $circleSize = 0; //旋转角度
+        $left = strlen($text) + 20;      //左边距
+        $top = $bgHight - 40;       //顶边距
 
         imagefttext($img, $fontSize, $circleSize, $left, $top, $black, $font, $text);
-        list($bgWidth, $bgHight, $bgType) = getimagesize($bigImgPath);
         switch ($bgType) {
             case 1: //gif
                 header('Content-Type:image/gif');
-                imagegif($img,$savePath);
+                imagegif($img, $savePath);
                 break;
             case 2: //jpg
-                header('Content-Type:image/jpg');
-                imagejpeg($img,$savePath);
+                header('Content-Type:image/jpeg');
+                imagejpeg($img, $savePath);
                 break;
             case 3: //jpg
                 header('Content-Type:image/png');
-                imagepng($img,$savePath);
+                imagepng($img, $savePath);
                 break;
             default:
                 break;
@@ -41,7 +41,7 @@ class imgAddText
         imagedestroy($img);
     }
 
-    function AddImg($bigImgPath, $qCodePath,$savePath)
+    function AddImg($bigImgPath, $qCodePath, $savePath)
     {
         //$bigImgPath = 'backgroud.png';
         //$qCodePath = 'qcode.png';
@@ -50,20 +50,20 @@ class imgAddText
         list($qCodeWidth, $qCodeHight, $qCodeType) = getimagesize($qCodePath);
 // imagecopymerge使用注解,200
 //imagecopymerge($bigImg, $qCodeImg, 背景图x坐标, 背景图y坐标, 水印图x坐标, 水印图y坐标, 水印图宽$qCodeWidth, 水印图高$qCodeHight, 水印图透明度100);
-        imagecopymerge($bigImg, $qCodeImg, 200, 300, 0, 0, $qCodeWidth, $qCodeHight, 100);
+        imagecopymerge($bigImg, $qCodeImg, 20, 30, 0, 0, $qCodeWidth/2, $qCodeHight/2, 100);
         list($bigWidth, $bigHight, $bigType) = getimagesize($bigImgPath);
         switch ($bigType) {
             case 1: //gif
                 header('Content-Type:image/gif');
-                imagegif($bigImg,$savePath);
+                imagegif($bigImg, $savePath);
                 break;
             case 2: //jpg
                 header('Content-Type:image/jpg');
-                imagejpeg($bigImg,$savePath);
+                imagejpeg($bigImg, $savePath);
                 break;
             case 3: //jpg
                 header('Content-Type:image/png');
-                imagepng($bigImg,$savePath);
+                imagepng($bigImg, $savePath);
                 break;
             default:
                 # code...
