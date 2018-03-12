@@ -41,43 +41,6 @@ $imgAdd->AddImg($bigImgPath,$waterImg,$saveImgPath);
 
 
 
-/*continue*/
-if (empty($content_local)) {
-    echo 'local fail';
-} else {
-    echo 'local succeed';
-    $pattern_continue_url = "/<form name=\"formDisclaimer\" method=\"post\" action=\"(.*)?\">/";
-    $pattern_continue_disc ="/<input type=\"hidden\" name=\"disc\" value=\"(.*)?\">/";
-    $pattern_continue_category ="/<input type=\"hidden\" name=\"category\" value=\"(.*)?\">/";
-    $pattern_continue_section ="/<input type=\"hidden\" name=\"section\" value=\"(.*)?\">/";
-    $pattern_continue_serverName ="/ <input type=\"hidden\" name=\"serverName\" value=\"(.*)?\">/";
-    $pattern_continue_superRegion ="/<input type=\"hidden\" name=\"superRegion\" value=\"(.*)?\">/";
-    $pattern_continue_u ="/<input type=\"hidden\" name=\"u\" value=\"(.*)?\">/";
-    preg_match_all($pattern_continue_url, $content_local, $arr_continue);
-    preg_match_all($pattern_continue_disc, $content_local, $arr_disc);
-    preg_match_all($pattern_continue_category, $content_local, $arr_category);
-    preg_match_all($pattern_continue_section, $content_local, $arr_section);
-    preg_match_all($pattern_continue_serverName, $content_local, $arr_serverName);
-    preg_match_all($pattern_continue_superRegion, $content_local, $arr_superRegion);
-    preg_match_all($pattern_continue_u, $content_local, $arr_u);
-    $url_continue = $arr_continue[1];
-    $data_disc = $arr_disc[1];
-    $data_category = $arr_category[1];
-    $data_section = $arr_section[1];
-    $data_serverName = $arr_serverName[1];
-    $data_superRegion = $arr_superRegion[1];
-    $data_u = $arr_u[1];
-
-    $data_continue = array(
-        'disc' => $data_disc,
-        'category' => $data_category,
-        'section' => $data_section,
-        'serverName' => $data_serverName,
-        'superRegion' => $data_superRegion,
-        'u' => $data_u
-    );
-    $content_continue = $curl->get_content_post($url_continue, $cookie,$data_continue);
-}
 
 /*publish_1*/
 if (empty($content_continue)) {

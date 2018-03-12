@@ -62,11 +62,11 @@ if (empty($content_city)) {
     $pattern_ad_u ="/<input type=\"hidden\" name=\"u\" value=\"(.*)?\">/";
     $pattern_ad_serverName ="/<input type=\"hidden\" name=\"serverName\" value=\"(.*)?\">/";
     preg_match_all($pattern_ad_url, $content_city, $arr_ad);
-    preg_match_all($pattern_ad_u, $content_city, $pattern_ad_u);
-    preg_match_all($pattern_ad_serverName, $content_city, $pattern_ad_serverName);
+    preg_match_all($pattern_ad_u, $content_city, $arr_ad_u);
+    preg_match_all($pattern_ad_serverName, $content_city, $arr_ad_serverName);
     $url_ad = $arr_ad[1][0];
-    $data_u = $pattern_ad_u[1][0];
-    $data_serverName = $pattern_ad_serverName[1][0];
+    $data_u = $arr_ad_u[1][0];
+    $data_serverName = $arr_ad_serverName[1][0];
     var_dump($url_ad);
     var_dump($data_u);
     var_dump($data_serverName);
@@ -122,4 +122,68 @@ if (empty($content_women_men)) {
     $url_local=substr($url_ad,0,strpos($url_ad,'.com')+4).$arr_location[1][0];
     var_dump($url_local);
     $content_local  = $curl->get_content($url_local, $cookie);
+}
+
+/*continue*/
+if (empty($content_local)) {
+    echo 'local fail<br>';
+} else {
+    echo $content_local;
+    echo 'local succeed<br>';
+    $pattern_continue_url = "/<form name=\"formDisclaimer\" method=\"post\" action=\"(.*)?\">/";
+    $pattern_continue_url = "/<input type=\"hidden\" name=\"u\" value=\"(.*)?\">/is";
+    var_dump($pattern_continue_url);
+    /*
+    $pattern_continue_disc ="/<input type=\"hidden\" name=\"disc\" value=\"(.*)?\">/";
+    $pattern_continue_category ="/<input type=\"hidden\" name=\"category\" value=\"(.*)?\">/";
+    $pattern_continue_section ="/<input type=\"hidden\" name=\"section\" value=\"(.*)?\">/";
+    $pattern_continue_serverName ="/ <input type=\"hidden\" name=\"serverName\" value=\"(.*)?\">/";
+    $pattern_continue_superRegion ="/<input type=\"hidden\" name=\"superRegion\" value=\"(.*)?\">/";
+    $pattern_continue_u ="/<input type=\"hidden\" name=\"u\" value=\"(.*)?\">/";
+    */
+
+    preg_match_all($pattern_continue_url, $content_local, $arr_continue);
+    /*
+    preg_match_all($pattern_continue_disc, $content_local, $arr_disc);
+    preg_match_all($pattern_continue_category, $content_local, $arr_category);
+    preg_match_all($pattern_continue_section, $content_local, $arr_section);
+    preg_match_all($pattern_continue_serverName, $content_local, $arr_serverName);
+    preg_match_all($pattern_continue_superRegion, $content_local, $arr_superRegion);
+    preg_match_all($pattern_continue_u, $content_local, $arr_u);
+    */
+    $url_continue = $arr_continue[1][0];
+    /*
+    $data_disc = $arr_disc[1][0];
+    $data_category = $arr_category[1][0];
+    $data_section = $arr_section[1][0];
+    $data_serverName = $arr_serverName[1][0];
+    $data_superRegion = $arr_superRegion[1][0];
+    $data_u = $arr_u[1][0];
+    */
+    echo 'url_continue';
+    var_dump($url_continue);
+    /*
+    echo '$data_disc<br>';
+    var_dump($data_disc);
+    echo '$data_category<br>';
+    var_dump($data_category);
+    echo '$data_section<br>';
+    var_dump($data_section);
+    echo '$data_serverName<br>';
+    var_dump($data_serverName);
+    echo '$data_superRegion<br>';
+    var_dump($data_superRegion);
+    echo '$data_u<br>';
+    var_dump($data_u);
+
+    $data_continue = array(
+        'disc' => $data_disc,
+        'category' => $data_category,
+        'section' => $data_section,
+        'serverName' => $data_serverName,
+        'superRegion' => $data_superRegion,
+        'u' => $data_u
+    );
+    $content_continue = $curl->get_content_post($url_continue, $cookie,$data_continue);
+    */
 }
