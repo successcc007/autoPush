@@ -32,8 +32,8 @@
 //}
 
 //var_dump($_FILES['img']['tmp_name']);
-//var_dump($_FILES['img']['name']);
-var_dump($_POST);
+var_dump($_FILES['img']['name']);
+//var_dump($_POST);
 
 
 

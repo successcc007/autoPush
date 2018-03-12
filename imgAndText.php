@@ -71,19 +71,25 @@ class imgAndText
         return $ret;
     }
 
-    function SendData($url, $text_data,$img_data){
+    function SendData($url, $text_data = '', $img_data = '')
+    {
+        global $post_data;
         $post_data = '';
         $req_headers = [
             'Content-Type: multipart/form-data; boundary=' . FORM_BOUNDARY,
         ];
-        array_walk($text_data, array($this,'text_form_data_splice'));
-        array_walk($img_data, array($this,'image_form_data_splice'));
+        if(!empty($text_data)){
+            $tResult = array_walk($text_data, array($this, 'text_form_data_splice'));
+        }
+        if(!empty($img_data)){
+            $iResult = array_walk($img_data, array($this, 'image_form_data_splice'));
+        }
         if (!empty($post_data)) {
             $post_data .= FORM_HYPHENS . FORM_BOUNDARY . FORM_HYPHENS;
-            $result =self::curl_post($url, $req_headers, $post_data);
+            $result = self::curl_post($url, $req_headers, $post_data);
             return $result;
         };
-        return $post_data;
+        // return $post_data;
     }
 }
 ///*
