@@ -121,8 +121,20 @@ if (empty($content_women_men)) {
     $url_local = $arr_location[1][0];
     $url_local=substr($url_ad,0,strpos($url_ad,'.com')+4).$arr_location[1][0];
     var_dump($url_local);
-    $content_local  = $curl->get_content($url_local, $cookie);
+    $content_local_1  = $curl->get_content($url_local, $cookie);
 }
+/*continue_1*/
+if (empty($content_local_1)) {
+    echo 'local_1 fail<br>';
+} else {
+    echo 'local_1 succeed<br>';
+    $pattern_continue_1_url = "/<a href=\"(.*)?\">here<\/a>/is";
+    preg_match_all($pattern_continue_1_url, $content_local, $arr_continue_1);
+    $url_continue_1 = $arr_continue_1[1][0];
+    var_dump($url_continue_1);
+    $content_local  = $curl->get_content($url_continue_1, $cookie);
+}
+
 
 /*continue*/
 if (empty($content_local)) {
